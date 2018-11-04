@@ -2,12 +2,18 @@
 #from Workbook2SQLTranslator import Workbook2SQLTranslator
 
 class Sheet2TableTranslator():
-    def createTables(self):
-        return 'CREATE TABLE sheet (sheet_id, sheet_name, file_id);'
+    nextAvailableSheetId= 0
+    tableName = 'sheet'
 
-    def translate(self, sheet):
-        print(sheet.col_values( 0))
+    def createTables(self):
+        return 'CREATE TABLE ' + self.tableName + ' (sheet_id, sheet_name, file_id);'
+
+    def translate(self, sheetdfs):
+        sheetEntries = sheetdfs['Range_Annotations_Data'][['Sheet.Name', 'Sheet.Index']]
+        uniqueSheetEntries = sheetEntries.drop_duplicates()
+        print(uniqueSheetEntries)
+
         return ' '
 
     def cleanup(self):
-        return 'DROP TABLE IF EXISTS sheet;'
+        return 'DROP TABLE IF EXISTS ' + self.tableName + ';'

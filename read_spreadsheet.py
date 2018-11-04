@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import xlrd
+import pandas as pd
 from DBConnector import DBConnector
 from Workbook2SQLTranslator import Workbook2SQLTranslator
 from Sheet2TableTranslator import Sheet2TableTranslator
@@ -23,8 +23,10 @@ if __name__ == '__main__':
 
         workbookPathsInDirectory = glob.glob(DIRECTORY_PATH + '/*.xlsx')
         for workbookPath in workbookPathsInDirectory:
-            workbook = xlrd.open_workbook(workbookPath)
-            sql = workbook2SQLTranslator.translate(workbook.sheet_by_name('Range_Annotations_Data'))
+            workbook = pd.ExcelFile(workbookPath)
+            sheetdfs = {sheet: workbook.parse(sheet) for sheet in workbook.sheet_names}
+
+            sql = workbook2SQLTranslator.translate(sheetdfs)
             dbconnector.execute(sql)
 
 

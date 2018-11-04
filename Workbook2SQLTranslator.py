@@ -10,7 +10,6 @@ class Workbook2SQLTranslator:
 
     def translate(self,  sheet):
         sql = self.sheet2TableTranslator.translate(sheet)
-
         return sql
 
     def cleanup(self):
