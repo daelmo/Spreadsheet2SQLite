@@ -1,7 +1,8 @@
 from Sheet2TableTranslator import Sheet2TableTranslator
+from Translator import Translator
 
 
-class Workbook2SQLTranslator:
+class Workbook2SQLTranslator(Translator):
     sheet2TableTranslator = Sheet2TableTranslator()
 
     def createTables(self):
