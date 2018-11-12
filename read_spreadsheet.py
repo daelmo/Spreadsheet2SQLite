@@ -23,8 +23,7 @@ if __name__ == '__main__':
         for workbookPath in workbookPathsInDirectory:
             workbook = pd.ExcelFile(workbookPath)
             sheetdfs = {sheet: workbook.parse(sheet) for sheet in workbook.sheet_names}
-
-            file2SQLTranslator.translate(sheetdfs)
+            file2SQLTranslator.generateInsertSQL(sheetdfs)
 
 
 

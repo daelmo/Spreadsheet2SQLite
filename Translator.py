@@ -20,22 +20,25 @@ class Translator:
         for row in df.iterrows():
             sql = 'INSERT INTO ' + self.tableName + ' ' + str(self.tableFormat) + ' VALUES ('
             for index in self.spreadsheetFormat:
-                sql += self._escape(row[1][index])
+                sql += self._escapeValues(row[1][index])
             sql = sql[:-1]
             sql += ');'
             sqlList.append(sql)
         return sqlList
 
-    def appendColumnToDF(self, df, columnName, value):
+    def _appendFileIDToDF(self, df, value):
+        columnName = 'File.ID'
         df[columnName] = value
         self.spreadsheetFormat.append(columnName)
         return df
 
-
-
-    def _escape(self, value):
+    def _escapeValues(self, value):
         if isinstance(value, str):
             return '"' + str(value) + '",'
+        elif value is False:
+            return str(0) + ','
+        elif value is True:
+            return str(1) + ','
         else:
-            return str(value) + ","
+            return str(value) + ','
 

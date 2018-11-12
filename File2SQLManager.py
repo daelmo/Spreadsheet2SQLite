@@ -12,7 +12,7 @@ class File2SQLManager():
         sql = self.sheet2TableTranslator.generateCreateTableSQL()
         self.dbconnector.execute(sql)
 
-    def translate(self,  sheet):
+    def generateInsertSQL(self, sheet):
         self.incrementFileID()
         sqlList = self.sheet2TableTranslator.translate(sheet, self.getCurrentFileID())
         for sql in sqlList:
