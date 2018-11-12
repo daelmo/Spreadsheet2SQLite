@@ -28,7 +28,7 @@ class Translator:
 
     def _escapeValues(self, value):
         if isinstance(value, str):
-            return '"' + str(value) + '",'
+            return '"' + value + '",'
         elif value is False:
             return str(0) + ','
         elif value is True:

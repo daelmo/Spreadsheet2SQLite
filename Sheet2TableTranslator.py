@@ -12,25 +12,23 @@ class Sheet2TableTranslator(Translator):
     def translate(self, sheetdfs, fileID):
         self.spreadsheetFormat = ['Sheet.Index', 'Sheet.Name', 'Annotation.Label', 'TotalCells', 'EmptyCells', 'ConstantCells', 'FormulaCells',
                                   'HasMergedCells', 'Rows', 'Columns']
-
         sheetEntries = sheetdfs['Range_Annotations_Data'][self.spreadsheetFormat]
-
         sheetEntries = self._appendFileIDToDF(sheetEntries, fileID)
-        #sheetEntries = self._appendStartEndRangeToDF(sheetdfs, sheetEntries)
-
-
-        rangeEntries = sheetdfs['Range_Annotations_Data']['Annotation.Range']
-
-        rangeStartEntries = rangeEntries.apply(lambda x: x.split(':')[0])
-        rangeEndEntries = rangeEntries.apply(lambda x: x.split(':')[-1])
-        sheetEntries['Range.Start'] = rangeStartEntries
-        sheetEntries['Range.End'] = rangeEndEntries
-        self.spreadsheetFormat.append('Range.Start')
-        self.spreadsheetFormat.append('Range.End')
+        sheetEntries = self._appendStartEndRangeToDF(sheetdfs, sheetEntries)
         return self.generateInsertSQL(sheetEntries)
 
     def _appendFileIDToDF(self, df, value):
         columnName = 'File.ID'
         df[columnName] = value
         self.spreadsheetFormat.append(columnName)
+        return df
+
+    def _appendStartEndRangeToDF(self, full_df, df):
+        rangeEntries = full_df['Range_Annotations_Data']['Annotation.Range']
+        rangeStartEntries = rangeEntries.apply(lambda x: (x.split(':')[0]).replace('$', ''))
+        rangeEndEntries = rangeEntries.apply(lambda x: (x.split(':')[-1]).replace('$', ''))
+        df['Range.Start'] = rangeStartEntries
+        df['Range.End'] = rangeEndEntries
+        self.spreadsheetFormat.append('Range.Start')
+        self.spreadsheetFormat.append('Range.End')
         return df

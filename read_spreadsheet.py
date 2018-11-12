@@ -16,14 +16,15 @@ if __name__ == '__main__':
 
         file2SQLTranslator = File2SQLManager(dbconnector)
         file2SQLTranslator.generateCleanupSQL()
-
         file2SQLTranslator.generateCreateTableSQL()
 
         workbookPathsInDirectory = glob.glob(DIRECTORY_PATH + '/*.xlsx')
         for workbookPath in workbookPathsInDirectory:
+            print("Start translating " + workbookPath + " in SQL:")
             workbook = pd.ExcelFile(workbookPath)
             sheetdfs = {sheet: workbook.parse(sheet) for sheet in workbook.sheet_names}
             file2SQLTranslator.generateInsertSQL(sheetdfs)
+            print("Translation successful.")
 
 
 
