@@ -1,13 +1,16 @@
+import pandas as pd
 
 from Translator import Translator
 
 class Sheet2TableTranslator(Translator):
-    nextAvailableSheetId= 0
-    tableName = 'sheet'
-    tableFormat = ('sheet_id', 'sheet_name', 'file_id')
-    spreadsheetFormat = ['Sheet.Index', 'Sheet.Name' ]
 
-    def translate(self, sheetdfs):
+    def __init__(self):
+        self.tableName = 'sheet'
+        self.tableFormat = ('sheet_id', 'sheet_name', 'file_id')
+
+    def translate(self, sheetdfs, fileID):
+        self.spreadsheetFormat = ['Sheet.Index', 'Sheet.Name']
         sheetEntries = sheetdfs['Range_Annotations_Data'][self.spreadsheetFormat]
-        uniqueSheetEntries = sheetEntries.drop_duplicates()
-        return self.generateInsertSQL(uniqueSheetEntries)
+        sheetEntries = self.appendColumnToDF(sheetEntries, 'File.ID', fileID)
+
+        return self.generateInsertSQL(sheetEntries)

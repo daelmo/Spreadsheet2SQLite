@@ -1,25 +1,29 @@
 from Sheet2TableTranslator import Sheet2TableTranslator
 
 
-class Workbook2SQLTranslator():
+class File2SQLManager():
     sheet2TableTranslator = Sheet2TableTranslator()
-    nextAvailableFileId = -1
+    _nextAvailableFileId = -1
+
+    def __init__(self, dbconnector):
+        self.dbconnector = dbconnector
 
     def generateCreateTableSQL(self):
         sql = self.sheet2TableTranslator.generateCreateTableSQL()
-        return sql
+        self.dbconnector.execute(sql)
 
     def translate(self,  sheet):
-
-        sql = self.sheet2TableTranslator.translate(sheet)
-        return sql
+        self.incrementFileID()
+        sqlList = self.sheet2TableTranslator.translate(sheet, self.getCurrentFileID())
+        for sql in sqlList:
+            self.dbconnector.execute(sql)
 
     def generateCleanupSQL(self):
         sql = self.sheet2TableTranslator.generateCleanupSQL()
-        return sql
+        self.dbconnector.execute(sql)
 
     def getCurrentFileID(self):
-        return self.nextAvailableFileId
+        return self._nextAvailableFileId
 
     def incrementFileID(self):
-        self.nextAvailableFileId += 1
+        self._nextAvailableFileId += 1
