@@ -26,12 +26,6 @@ class Translator:
             sqlList.append(sql)
         return sqlList
 
-    def _appendFileIDToDF(self, df, value):
-        columnName = 'File.ID'
-        df[columnName] = value
-        self.spreadsheetFormat.append(columnName)
-        return df
-
     def _escapeValues(self, value):
         if isinstance(value, str):
             return '"' + str(value) + '",'

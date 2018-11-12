@@ -29,7 +29,8 @@ class Sheet2TableTranslator(Translator):
         self.spreadsheetFormat.append('Range.End')
         return self.generateInsertSQL(sheetEntries)
 
-
-    def _escapeRange(self, spreadsheetRange):
-        return spreadsheetRange.replaceAll('$', '')
-
+    def _appendFileIDToDF(self, df, value):
+        columnName = 'File.ID'
+        df[columnName] = value
+        self.spreadsheetFormat.append(columnName)
+        return df
