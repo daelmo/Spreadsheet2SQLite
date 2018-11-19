@@ -1,41 +1,27 @@
-import pandas as pd
-
 from Translator import Translator
 
-class ToTableTableTranslator(Translator):
+class ToAnnotationTableTranslator(Translator):
 
     def __init__(self):
-        self.tableName = 'tables'
+        self.tableName = 'annotations'
         self.tableFormat = ('sheet_id', 'sheet_name', 'annotation_label', 'annotation_name', 'total_cell_count', 'empty_cell_count', 'constant_cell_count', 'formula_cell_count',
-                            'has_merged_cells', 'row_count', 'column_count', 'file_id', 'table_id', 'range_start', 'range_end')
+                            'has_merged_cells', 'row_count', 'column_count', 'file_id', 'range_start', 'range_end')
+
 
     def translate(self, sheetdfs, fileID):
         self.spreadsheetFormat = ['Sheet.Index', 'Sheet.Name', 'Annotation.Label', 'Annotation.Name', 'TotalCells', 'EmptyCells', 'ConstantCells', 'FormulaCells',
                                   'HasMergedCells', 'Rows', 'Columns']
         sheetEntries = sheetdfs['Range_Annotations_Data'][self.spreadsheetFormat]
-        sheetEntries = self._removeAllNotTableEntries(sheetEntries)
+        sheetEntries = self._removeAllTableEntries(sheetEntries)
         sheetEntries = self._appendFileIDToDF(sheetEntries, fileID)
-        sheetEntries = self._appendTableIDToDF(sheetEntries)
+        #sheetEntries = self._appendTableIDToDF(sheetEntries)
         sheetEntries = self._appendStartEndRangeToDF(sheetdfs, sheetEntries)
-        #sheetEntries = self._removeAnnotationLabel(sheetEntries, 'Annotation.Label')
         return self.generateInsertSQL(sheetEntries)
 
     def _appendFileIDToDF(self, df, value):
         columnName = 'File.ID'
         df[columnName] = value
         self.spreadsheetFormat.append(columnName)
-        return df
-
-    def _removeAllNotTableEntries(self, df):
-        return df[df['Annotation.Label'] == 'Table']
-
-    def _removeAnnotationLabel(self, df, label):
-        del df[label]
-        return df
-
-    def _appendTableIDToDF(self, df):
-        df['Table.ID'] = list(range( df.shape[0]))
-        self.spreadsheetFormat.append('Table.ID')
         return df
 
     def _appendStartEndRangeToDF(self, full_df, df):
@@ -47,3 +33,6 @@ class ToTableTableTranslator(Translator):
         self.spreadsheetFormat.append('Range.Start')
         self.spreadsheetFormat.append('Range.End')
         return df
+
+    def _removeAllTableEntries(self, df):
+        return df[df['Annotation.Label'] != 'Table']
