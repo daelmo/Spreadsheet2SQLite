@@ -14,7 +14,6 @@ class ToAnnotationTableTranslator(Translator):
         sheetEntries = sheetdfs['Range_Annotations_Data'][self.spreadsheetFormat]
         sheetEntries = self._removeAllTableEntries(sheetEntries)
         sheetEntries = self._appendFileIDToDF(sheetEntries, fileID)
-        #sheetEntries = self._appendTableIDToDF(sheetEntries)
         sheetEntries = self._appendStartEndRangeToDF(sheetdfs, sheetEntries)
         return self.generateInsertSQL(sheetEntries)
 
