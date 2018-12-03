@@ -26,6 +26,8 @@ if __name__ == '__main__':
             translatorManager.generateInsertSQL(sheetdfs)
             print("Translation successful.")
 
+        translatorManager.commitTranslation()
+
 
 
 

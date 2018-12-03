@@ -31,6 +31,9 @@ class SQLTranslatorManager():
             sql = translator.generateCleanupSQL()
             self.dbconnector.execute(sql)
 
+    def commitTranslation(self):
+        self.dbconnector.commit()
+
     def getCurrentFileID(self):
         return self._nextAvailableFileId
 

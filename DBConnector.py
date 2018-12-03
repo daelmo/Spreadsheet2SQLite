@@ -22,6 +22,9 @@ class DBConnector:
     def _closeConnection(self):
         self.connection.close()
 
+    def commit(self):
+        self.connection.commit()
+
     def execute(self, sql):
         print(sql)
         cursor = self.connection.cursor()
