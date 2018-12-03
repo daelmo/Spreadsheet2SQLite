@@ -6,7 +6,7 @@ class ToTableTableTranslator(Translator):
 
     def __init__(self):
         self.tableName = 'tables'
-        self.tableFormat = ('sheet_id', 'sheet_name', 'annotation_label', 'annotation_name', 'total_cell_count', 'empty_cell_count', 'constant_cell_count', 'formula_cell_count',
+        self.tableFormat = ('sheet_id', 'sheet_name', 'annotation_label', 'annotation_id', 'total_cell_count', 'empty_cell_count', 'constant_cell_count', 'formula_cell_count',
                             'has_merged_cells', 'row_count', 'column_count', 'file_id', 'table_id', 'range_start', 'range_end')
 
     def translate(self, sheetdfs, fileID):
@@ -17,7 +17,6 @@ class ToTableTableTranslator(Translator):
         sheetEntries = self._appendFileIDToDF(sheetEntries, fileID)
         sheetEntries = self._appendTableIDToDF(sheetEntries)
         sheetEntries = self._appendStartEndRangeToDF(sheetdfs, sheetEntries)
-        #sheetEntries = self._removeAnnotationLabel(sheetEntries, 'Annotation.Label')
         return self.generateInsertSQL(sheetEntries)
 
     def _appendFileIDToDF(self, df, value):

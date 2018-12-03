@@ -4,7 +4,7 @@ class ToAnnotationTableTranslator(Translator):
 
     def __init__(self):
         self.tableName = 'annotations'
-        self.tableFormat = ('sheet_id', 'sheet_name', 'annotation_label', 'annotation_name', 'total_cell_count', 'empty_cell_count', 'constant_cell_count', 'formula_cell_count',
+        self.tableFormat = ('sheet_id', 'sheet_name', 'annotation_label', 'table_id', 'total_cell_count', 'empty_cell_count', 'constant_cell_count', 'formula_cell_count',
                             'has_merged_cells', 'row_count', 'column_count', 'file_id', 'range_start', 'range_end')
 
 
