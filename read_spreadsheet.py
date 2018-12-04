@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import pandas as pd
 from DBConnector import DBConnector
-from SQLTranslatorManager import SQLTranslatorManager
+from TranslatorManager import TranslatorManager
 from ToTableTableTranslator import ToTableTableTranslator
 from DataExtractorManager import DataExtractorManager
 import glob
@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
         #collect data to database
 
-        translatorManager = SQLTranslatorManager(dbconnector)
+        translatorManager = TranslatorManager(dbconnector)
         translatorManager.generateCleanupSQL()
         translatorManager.generateCreateTableSQL()
 
@@ -26,7 +26,7 @@ if __name__ == '__main__':
             print("Start translating " + workbookPath + " in SQL:")
             workbook = pd.ExcelFile(workbookPath)
             sheetdfs = {sheet: workbook.parse(sheet) for sheet in workbook.sheet_names}
-            translatorManager.generateInsertSQL(sheetdfs)
+            translatorManager.generateInsertSQL(sheetdfs, workbookPath.split('/')[1])
             print("Translation finished.")
 
         dbconnector.commit()

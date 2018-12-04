@@ -12,7 +12,7 @@ class DataExtractorManager:
         pass
 
     def _getRangesFromDB(self):
-        sql = 'Select file_id, table_id, sheet_id, sheet_name, range_start, range_end from tables'
+        sql = 'Select file_name, table_id, sheet_id, sheet_name, range_start, range_end from tables'
         annotationRanges = pd.read_sql_query( sql, self.dbconnector.getConnection())
 
         print (annotationRanges)

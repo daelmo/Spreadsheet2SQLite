@@ -2,7 +2,7 @@ from ToTableTableTranslator import ToTableTableTranslator
 from ToAnnotationTableTranslator import ToAnnotationTableTranslator
 
 
-class SQLTranslatorManager():
+class TranslatorManager():
     tableTableTranslator = ToTableTableTranslator()
     annotationTableTranslator = ToAnnotationTableTranslator()
 
@@ -18,10 +18,10 @@ class SQLTranslatorManager():
             sql = translator.generateCreateTableSQL()
             self.dbconnector.execute(sql)
 
-    def generateInsertSQL(self, sheet):
+    def generateInsertSQL(self, sheet, fileName):
         self._incrementFileID()
         for translator in self.translatorList:
-            sqlList = translator.translate(sheet, self.getCurrentFileID())
+            sqlList = translator.translate(sheet, self.getCurrentFileID(), fileName)
             for sql in sqlList:
                 self.dbconnector.execute(sql)
 

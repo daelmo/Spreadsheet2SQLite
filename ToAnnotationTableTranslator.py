@@ -8,7 +8,7 @@ class ToAnnotationTableTranslator(Translator):
                             'has_merged_cells', 'row_count', 'column_count', 'file_id', 'range_start', 'range_end')
 
 
-    def translate(self, sheetdfs, fileID):
+    def translate(self, sheetdfs, fileID, fileName):
         self.spreadsheetFormat = ['Sheet.Index', 'Sheet.Name', 'Annotation.Label', 'Annotation.Name', 'TotalCells', 'EmptyCells', 'ConstantCells', 'FormulaCells',
                                   'HasMergedCells', 'Rows', 'Columns']
         sheetEntries = sheetdfs['Range_Annotations_Data'][self.spreadsheetFormat]
