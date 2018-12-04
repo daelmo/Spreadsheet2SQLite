@@ -30,6 +30,7 @@ class DBConnector:
     def execute(self, sql):
         print(sql)
         cursor = self.connection.cursor()
-        return cursor.execute(sql)
+        cursor.execute(sql)
+        return cursor.fetchall()
 
 
