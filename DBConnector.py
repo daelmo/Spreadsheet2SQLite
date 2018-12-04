@@ -33,4 +33,7 @@ class DBConnector:
         cursor.execute(sql)
         return cursor.fetchall()
 
+    def getConnection(self):
+        return self.connection
+
 
