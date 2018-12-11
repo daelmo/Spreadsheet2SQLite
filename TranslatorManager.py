@@ -1,12 +1,12 @@
-from ToTableTableTranslator import ToTableTableTranslator
+from CellAnnotationsTableTranslator import CellAnnotationsTableTranslator
 from ToAnnotationTableTranslator import ToAnnotationTableTranslator
 
 
 class TranslatorManager():
-    tableTableTranslator = ToTableTableTranslator()
+    cellAnnotationsTranslator = CellAnnotationsTableTranslator()
     annotationTableTranslator = ToAnnotationTableTranslator()
 
-    translatorList = (tableTableTranslator, annotationTableTranslator)
+    translatorList = (cellAnnotationsTranslator,)
 
     _nextAvailableFileId = -1
 
@@ -18,21 +18,13 @@ class TranslatorManager():
             sql = translator.generateCreateTableSQL()
             self.dbconnector.execute(sql)
 
-    def generateInsertSQL(self, sheet, fileName):
-        self._incrementFileID()
+    def generateInsertSQL(self, csv_data):
         for translator in self.translatorList:
-            sqlList = translator.translate(sheet, self.getCurrentFileID(), fileName)
+            sqlList = translator.translate(csv_data)
             for sql in sqlList:
                 self.dbconnector.execute(sql)
-
 
     def generateCleanupSQL(self):
         for translator in self.translatorList:
             sql = translator.generateCleanupSQL()
             self.dbconnector.execute(sql)
-
-    def getCurrentFileID(self):
-        return self._nextAvailableFileId
-
-    def _incrementFileID(self):
-        self._nextAvailableFileId += 1

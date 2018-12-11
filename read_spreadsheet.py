@@ -2,34 +2,33 @@
 import pandas as pd
 from DBConnector import DBConnector
 from TranslatorManager import TranslatorManager
-from ToTableTableTranslator import ToTableTableTranslator
+from CellAnnotationsTableTranslator import CellAnnotationsTableTranslator
 from DataExtractorManager import DataExtractorManager
 import glob
 
 
 
 #DIRECTORY_PATH = 'ecir_annotated_files'
-DIRECTORY_PATH = 'test_files'
+DIRECTORY_PATH = 'data/'
 
 if __name__ == '__main__':
 
     with DBConnector('sqlite.db') as dbconnector:
 
-        #collect data to database
-
         translatorManager = TranslatorManager(dbconnector)
         translatorManager.generateCleanupSQL()
         translatorManager.generateCreateTableSQL()
 
-        workbookPathsInDirectory = glob.glob(DIRECTORY_PATH + '/*.xlsx')
-        for workbookPath in workbookPathsInDirectory:
-            print("Start translating " + workbookPath + " in SQL:")
-            workbook = pd.ExcelFile(workbookPath)
-            sheetdfs = {sheet: workbook.parse(sheet) for sheet in workbook.sheet_names}
-            translatorManager.generateInsertSQL(sheetdfs, workbookPath.split('/')[1])
-            print("Translation finished.")
+        print('Start reading files.')
+        csv_data = {}
+        csv_filenames = ['column_widths_enron', 'cell_annotations_enron', 'row_heights_enron', 'annotated_area_per_file', 'test']
+        for filename in csv_filenames:
+            csv_data[filename] = pd.read_csv(DIRECTORY_PATH + filename + '.csv', header = 0, keep_default_na=False)
+        print('Reading files successful.')
 
+        translatorManager.generateInsertSQL(csv_data)
         dbconnector.commit()
+        print("Translation finished.")
 
         # use data from database for info extraction
 

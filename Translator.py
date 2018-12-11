@@ -1,3 +1,5 @@
+import pandas as pd
+
 class Translator:
     tableName = None
     tableFormat = None
@@ -17,22 +19,29 @@ class Translator:
 
     def generateInsertSQL(self, df):
         sqlList = []
-        for row in df.iterrows():
-            sql = 'INSERT INTO ' + self.tableName + ' ' + str(self.tableFormat) + ' VALUES ('
-            for index in self.spreadsheetFormat:
-                sql += self._escapeValues(row[1][index])
+        for index, row in df.iterrows():
+
+            sql = 'INSERT INTO ' + self.tableName + ' ' + str(self.tableFormat)
+            sql += ' VALUES (' + self._escapeValues(index)
+            for value in row:
+                sql += self._escapeValues(value)
             sql = sql[:-1]
             sql += ');'
             sqlList.append(sql)
+            print (sql)
         return sqlList
 
     def _escapeValues(self, value):
-        if isinstance(value, str):
-            return '"' + value + '",'
+        if value is '':
+            return 'null,'
+        elif isinstance(value, pd.Series):
+            return '"' + value[0] + '",'
         elif value is False:
             return str(0) + ','
         elif value is True:
             return str(1) + ','
+        elif isinstance(value, str):
+            return '"' + value + '",'
         else:
             return str(value) + ','
 
