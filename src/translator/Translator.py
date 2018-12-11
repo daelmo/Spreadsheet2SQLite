@@ -28,7 +28,6 @@ class Translator:
             sql += ');'
             sqlList.append(sql)
             print (sql)
-            break
         return sqlList
 
     def _escapeValues(self, value):
