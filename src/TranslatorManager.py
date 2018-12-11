@@ -1,14 +1,12 @@
-from CellAnnotationsTableTranslator import CellAnnotationsTableTranslator
-from ToAnnotationTableTranslator import ToAnnotationTableTranslator
+from src.translator.CellAnnotationsTableTranslator import CellAnnotationsTableTranslator
+from src.translator.AnnotationRangeTableTranslator import AnnotationRangeTableTranslator
 
 
-class TranslatorManager():
+class TranslatorManager:
     cellAnnotationsTranslator = CellAnnotationsTableTranslator()
-    annotationTableTranslator = ToAnnotationTableTranslator()
+    annotationRangeTranslator = AnnotationRangeTableTranslator()
 
-    translatorList = (cellAnnotationsTranslator,)
-
-    _nextAvailableFileId = -1
+    translatorList = ( cellAnnotationsTranslator, annotationRangeTranslator)
 
     def __init__(self, dbconnector):
         self.dbconnector = dbconnector

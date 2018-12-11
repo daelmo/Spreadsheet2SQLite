@@ -20,15 +20,15 @@ class Translator:
     def generateInsertSQL(self, df):
         sqlList = []
         for index, row in df.iterrows():
-
             sql = 'INSERT INTO ' + self.tableName + ' ' + str(self.tableFormat)
-            sql += ' VALUES (' + self._escapeValues(index)
+            sql += ' VALUES ('
             for value in row:
                 sql += self._escapeValues(value)
             sql = sql[:-1]
             sql += ');'
             sqlList.append(sql)
             print (sql)
+            break
         return sqlList
 
     def _escapeValues(self, value):

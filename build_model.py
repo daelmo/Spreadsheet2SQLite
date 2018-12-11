@@ -1,15 +1,12 @@
 #!/usr/bin/python
 import pandas as pd
-from DBConnector import DBConnector
-from TranslatorManager import TranslatorManager
-from CellAnnotationsTableTranslator import CellAnnotationsTableTranslator
-from DataExtractorManager import DataExtractorManager
-import glob
+from src.DBConnector import DBConnector
+from src.TranslatorManager import TranslatorManager
+from src.translator.CellAnnotationsTableTranslator import CellAnnotationsTableTranslator
+from src.DataExtractorManager import DataExtractorManager
 
 
-
-#DIRECTORY_PATH = 'ecir_annotated_files'
-DIRECTORY_PATH = 'data/'
+DIRECTORY_PATH = './data/'
 
 if __name__ == '__main__':
 
@@ -29,15 +26,5 @@ if __name__ == '__main__':
         translatorManager.generateInsertSQL(csv_data)
         dbconnector.commit()
         print("Translation finished.")
-
-        # use data from database for info extraction
-
-        dataExtractorManager = DataExtractorManager(dbconnector)
-        dataExtractorManager.buildFormulaData()
-
-
-        dbconnector.commit()
-
-
 
 

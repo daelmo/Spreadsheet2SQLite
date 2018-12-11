@@ -1,13 +1,11 @@
 import sqlite3
 from sqlite3 import Error
-from sqlite_functions import Point_is_in_Range
 
 
 class DBConnector:
 
     def __init__(self, filename):
         self.connection = self._createConnection(filename)
-        self.connection.create_function('Range_in', 3, Point_is_in_Range)
 
     def __enter__(self):
         return self

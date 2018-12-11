@@ -1,6 +1,6 @@
 import pandas as pd
 
-from Translator import Translator
+from src.translator.Translator import Translator
 
 class CellAnnotationsTableTranslator(Translator):
 
