@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from src.GraphManager import GraphManager
+from src.graph.GraphManager import GraphManager
 from src.DBConnector import DBConnector
 
 if __name__ == '__main__':

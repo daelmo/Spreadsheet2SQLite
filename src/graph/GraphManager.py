@@ -8,7 +8,7 @@ class GraphManager:
     def __init__(self, dbconnector):
         self.dbconnector = dbconnector
 
-        tableCountGraph = TableCountGraph()
+        tableCountGraph = TableCountGraph(dbconnector)
         self.graphsForDrawing = [tableCountGraph]
 
     def draw(self):

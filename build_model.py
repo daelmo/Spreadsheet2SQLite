@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import pandas as pd
 from src.DBConnector import DBConnector
-from src.TranslatorManager import TranslatorManager
+from src.translator.TranslatorManager import TranslatorManager
 from src.translator.CellAnnotationsTableTranslator import CellAnnotationsTableTranslator
 from src.DataExtractorManager import DataExtractorManager
 
