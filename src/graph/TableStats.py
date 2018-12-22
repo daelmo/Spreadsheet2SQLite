@@ -5,9 +5,9 @@ class TableStats:
         self.dbconnector = dbconnector
 
     def draw(self):
-        #self._printTableCOuntPerSheet()
-        #self._printCountInnerOuterCells()
-        #self._printLabelDistribution()
+        self._printTableCOuntPerSheet()
+        self._printCountInnerOuterCells()
+        self._printLabelDistribution()
         self._CountSpreadsheetPerLabel()
 
     def _printCountInnerOuterCells(self):
@@ -24,33 +24,36 @@ class TableStats:
             result_outer / (result_inner + result_outer)))
         print('count of in table cells:' + str(result_inner) + ' in percent ' + str(
             result_inner / (result_outer + result_inner)))
-
-
+        print('\n')
 
     def _printTableCOuntPerSheet(self):
+        print('\033[1m table count per sheet \033[0m')
         sql = 'select count(c) from(Select count(distinct table_name) as c, file_name from cell_annotations where table_name is not NULL group by file_name)where c ==1'
         result_one = self.dbconnector.execute(sql)
 
         sql = 'select count(c) from(Select count(distinct table_name) as c, file_name from cell_annotations where table_name is not NULL group by file_name)where c !=1'
         result_many = self.dbconnector.execute(sql)
 
-        print (result_many)
         [(result_one,)] = result_one
         [(result_many,)] = result_many
-        print(result_many)
         print('count of exact 1 table:' + str(result_one) + ' in percent:' + str(
             result_one / (result_one + result_many)))
         print('count of more than 1 table:' + str(result_many) + ' in percent ' + str(
             result_many / (result_many + result_one)))
+        print('\n')
 
     def _printLabelDistribution(self):
+        print('\033[1m total distribution of labels \033[0m')
         sql = 'select count(*), cell_label from cell_annotations group by cell_label'
         result = self.dbconnector.execute(sql)
         print(pd.DataFrame(result))
+        print('\n')
 
     def _CountSpreadsheetPerLabel(self):
+        print('\033[1m Count of Spreadsheets per Label \033[0m')
         sql = 'select count(DISTINCT sheet_name), cell_label from cell_annotations group by cell_label'
         result = self.dbconnector.execute(sql)
         print(pd.DataFrame(result))
+        print('\n')
 
 

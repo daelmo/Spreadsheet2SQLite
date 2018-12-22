@@ -13,7 +13,6 @@ class LabelCountGraph:
         self.ylabel = 'appearence in %'
         self.dbconnector = dbconnector
         self.labelCount = self._getLabelCount()
-        print(self.labelCount)
 
     def draw(self):
         plt.clf()
