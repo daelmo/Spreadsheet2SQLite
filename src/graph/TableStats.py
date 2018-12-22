@@ -53,7 +53,14 @@ class TableStats:
         print('\033[1m Count of Spreadsheets per Label \033[0m')
         sql = 'select count(DISTINCT sheet_name), cell_label from cell_annotations group by cell_label'
         result = self.dbconnector.execute(sql)
-        print(pd.DataFrame(result))
+        sql = 'select count(DISTINCT sheet_name) from cell_annotations'
+        overall_count = self.dbconnector.execute(sql)
+        df = pd.DataFrame(result)
+        [(overall_count,)] = overall_count
+
+        df[3] = df.apply (lambda row: row[0]/overall_count,axis=1)
+
+        print(df)
         print('\n')
 
 
