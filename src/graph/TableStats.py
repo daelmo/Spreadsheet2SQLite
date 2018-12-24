@@ -59,7 +59,6 @@ class TableStats:
         [(overall_count,)] = overall_count
 
         df[3] = df.apply (lambda row: row[0]/overall_count,axis=1)
-
         print(df)
         print('\n')
 

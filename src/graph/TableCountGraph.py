@@ -10,18 +10,24 @@ class TableCountGraph:
     def __init__(self, dbconnector):
         self.title = 'number of tables per sheet'
         self.xlabel = 'count of tables per sheet'
-        self.ylabel = 'appearence in %'
+        self.ylabel = 'count of appearence in total'
         self.dbconnector = dbconnector
         self.tables_per_sheet = self._getTablesPerSheet()
 
     def draw(self):
         plt.clf()
-        num_bins = len(self.tables_per_sheet)
-        # n, bins, patches = plt.hist( self.tables_per_sheet, num_bins, range=(1,10), facecolor='blue', normed= True, linewidth=1, edgecolor='green')
-        sns.distplot(self.tables_per_sheet, bins=num_bins, hist=True, kde=False, axlabel=self.xlabel)
+        plt.cla()
+
+        num_bins = range(0,11)
+
+        plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
+        sns.distplot(self.tables_per_sheet, bins=num_bins, hist=True, kde=False, hist_kws={'align':'left', 'zorder': 3, 'rwidth': 0.8, 'alpha':1.0 })
+        plt.xlabel(self.xlabel)
+        plt.ylabel(self.ylabel)
         plt.tight_layout()
+
         plt.xlim([0,10])
-        plt.xticks(np.arange(min(self.tables_per_sheet), 11, 1.0))
+        plt.xticks(np.arange(0, 10, 1.0))
         #plt.show()
         plt.savefig('images/table_count_per_file.png')
 

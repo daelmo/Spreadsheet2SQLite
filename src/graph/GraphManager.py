@@ -9,11 +9,11 @@ class GraphManager:
     def __init__(self, dbconnector):
         self.dbconnector = dbconnector
 
-        #tableCountGraph = TableCountGraph(dbconnector)
-        tableStats = TableStats(dbconnector)
-        #labelCountGraph = LabelCountGraph(dbconnector)
+        tableCountGraph = TableCountGraph(dbconnector)
+        #tableStats = TableStats(dbconnector)
+        labelCountGraph = LabelCountGraph(dbconnector)
 
-        self.graphsForDrawing = [ tableStats, ]
+        self.graphsForDrawing = [ tableCountGraph, labelCountGraph ]
 
     def draw(self):
         for graph in self.graphsForDrawing:
