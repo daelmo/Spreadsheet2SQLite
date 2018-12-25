@@ -2,6 +2,7 @@ from src.translator.CellAnnotationsTableTranslator import CellAnnotationsTableTr
 from src.translator.AnnotationRangeTableTranslator import AnnotationRangeTableTranslator
 from src.translator.RowHeightTableTranslator import RowHeightTableTranslator
 from src.translator.ColumnWidthTableTranslator import ColumnWidthTableTranslator
+from src.translator.TableTableTranslator import TableTableTranslator
 
 
 class TranslatorManager:
@@ -9,8 +10,10 @@ class TranslatorManager:
     annotationRangeTranslator = AnnotationRangeTableTranslator()
     heightTableTranslator = RowHeightTableTranslator()
     widthTableTranslator = ColumnWidthTableTranslator()
+    tableTableTranslator = TableTableTranslator()
 
-    translatorList = (cellAnnotationsTranslator, annotationRangeTranslator, heightTableTranslator, widthTableTranslator,)
+    translatorList = (cellAnnotationsTranslator, annotationRangeTranslator, heightTableTranslator, widthTableTranslator,
+                      tableTableTranslator)
 
     def __init__(self, dbconnector):
         self.dbconnector = dbconnector

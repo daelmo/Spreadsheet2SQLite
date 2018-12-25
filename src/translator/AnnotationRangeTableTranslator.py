@@ -7,5 +7,5 @@ class AnnotationRangeTableTranslator(Translator):
         self.tableFormat = ('file_name','sheet_name','annotated_area','first_column','first_row','last_column','last_row')
 
     def translate(self, csv_data):
-        return self.generateInsertSQL(csv_data['annotated_area_per_file'])
+        return self.generateInsertSQL(csv_data['annotated_area_per_sheet'])
 
