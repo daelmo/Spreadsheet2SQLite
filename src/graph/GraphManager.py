@@ -1,6 +1,7 @@
 from src.graph.TableCountGraph import TableCountGraph
 from src.graph.TableStats import TableStats
 from src.graph.LabelCountGraph import LabelCountGraph
+from src.graph.HiddenCellsGraph import HiddenCellsGraph
 
 class GraphManager:
     graphsForDrawing = []
@@ -12,8 +13,10 @@ class GraphManager:
         tableCountGraph = TableCountGraph(dbconnector)
         #tableStats = TableStats(dbconnector)
         labelCountGraph = LabelCountGraph(dbconnector)
+        hiddenCellsGraph = HiddenCellsGraph(dbconnector)
 
-        self.graphsForDrawing = [ tableCountGraph, labelCountGraph ]
+
+        self.graphsForDrawing = [ hiddenCellsGraph ]
 
     def draw(self):
         for graph in self.graphsForDrawing:

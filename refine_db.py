@@ -13,3 +13,5 @@ if __name__ == '__main__':
         viewBuilder = ViewBuilder(dbconnector)
         viewBuilder.buildViews()
 
+        dbconnector.commit()
+
