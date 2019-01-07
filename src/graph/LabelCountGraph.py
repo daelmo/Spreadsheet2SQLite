@@ -17,7 +17,7 @@ class LabelCountGraph:
     def draw(self):
         plt.clf()
         plt.cla()
-        plt.figure(figsize=[3, 3])
+        plt.figure(figsize=[5.6, 3])
 
         height =  [x[0] for x in self.labelCount]
 
@@ -31,9 +31,16 @@ class LabelCountGraph:
         plt.xticks(y_pos, bars, color='orange', rotation=40, horizontalalignment='right')
         plt.yticks(color='orange')
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
-        plt.bar(y_pos, height, zorder=3)
-        plt.xlabel(self.xlabel)
-        plt.ylabel(self.ylabel)
+        ax = plt.bar(y_pos, height, zorder=3)
+
+        rects = ax.patches
+        labels = [x[0] for x in self.labelCount]
+
+        for rect, label in zip(rects, labels):
+            height = rect.get_height()
+            plt.text(rect.get_x() + rect.get_width() / 2, height + 5, label,
+                    ha='center', va='bottom')
+
 
         plt.tight_layout()
 

@@ -17,7 +17,7 @@ class TableCountGraph:
     def draw(self):
         plt.clf()
         plt.cla()
-        plt.figure(figsize=[3, 3])
+        plt.figure(figsize=[5.6, 3])
 
         num_bins = range(0,11)
 

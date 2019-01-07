@@ -16,7 +16,7 @@ class HiddenCellsGraph:
     def draw(self):
         plt.clf()
         plt.cla()
-        plt.figure(figsize= [3, 3])
+        plt.figure(figsize= [2.8, 1.5])
 
         num_bins = range(0,100)
 
