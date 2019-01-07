@@ -31,6 +31,8 @@ class LabelCountGraph:
         plt.xticks(y_pos, bars, color='orange', rotation=40, horizontalalignment='right')
         plt.yticks(color='orange')
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
+        plt.xlabel(self.xlabel)
+        plt.ylabel(self.ylabel)
         ax = plt.bar(y_pos, height, zorder=3)
 
         rects = ax.patches
