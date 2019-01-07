@@ -17,7 +17,8 @@ class LabelCountGraph:
     def draw(self):
         plt.clf()
         plt.cla()
-        plt.close()
+        plt.figure(figsize=[3, 3])
+
         height =  [x[0] for x in self.labelCount]
 
         # Choose the names of the bars
