@@ -16,7 +16,7 @@ class GraphManager:
         hiddenCellsGraph = HiddenCellsGraph(dbconnector)
 
 
-        self.graphsForDrawing = [ tableCountGraph, labelCountGraph, hiddenCellsGraph ]
+        self.graphsForDrawing = [ hiddenCellsGraph ]
 
     def draw(self):
         for graph in self.graphsForDrawing:
