@@ -4,13 +4,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-class TableCountGraph:
+class Table_per_Sheet_Graph:
     count_tables = []
 
     def __init__(self, dbconnector):
-        self.title = 'number of tables per sheet'
-        self.xlabel = 'count of tables per sheet'
-        self.ylabel = 'count of appearence in total'
         self.dbconnector = dbconnector
         self.tables_per_sheet = self._getTablesPerSheet()
 
@@ -23,8 +20,6 @@ class TableCountGraph:
 
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
         sns.distplot(self.tables_per_sheet, bins=num_bins, hist=True, kde=False, hist_kws={'align':'left', 'zorder': 3, 'rwidth': 0.8, 'alpha':1.0 })
-        plt.xlabel(self.xlabel)
-        plt.ylabel(self.ylabel)
         plt.tight_layout()
 
         plt.xlim([0,10])
