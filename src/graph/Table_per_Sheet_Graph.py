@@ -15,14 +15,13 @@ class Table_per_Sheet_Graph:
         plt.clf()
         plt.cla()
         plt.figure(figsize=[5.6, 3])
-
-        num_bins = range(0,11)
-
+        plt.xlim([0, 10])
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
-        sns.distplot(self.tables_per_sheet, bins=num_bins, hist=True, kde=False, hist_kws={'align':'left', 'zorder': 3, 'rwidth': 0.8, 'alpha':1.0 })
+        sns.distplot(self.tables_per_sheet, bins=124, hist=True, kde=False,
+                     hist_kws={ 'zorder': 3,  'alpha':1.0, 'align': 'left' })
         plt.tight_layout()
 
-        plt.xlim([0,10])
+
         plt.xticks(np.arange(0, 10, 1.0))
         #plt.show()
         plt.savefig('images/table_count_per_file.png')

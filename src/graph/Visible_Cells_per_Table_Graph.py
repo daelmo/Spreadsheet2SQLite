@@ -20,7 +20,8 @@ class Visible_Cells_per_Table_Graph:
         plt.xticks([0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1])
 
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
-        sns.distplot(self.ratio_filled_cells_per_table, bins=100, hist=True, kde=False, hist_kws={'zorder': 3, 'rwidth': 2, 'alpha':1.0})
+        sns.distplot(self.ratio_filled_cells_per_table, bins=10, hist=True, kde=False,
+                     hist_kws={'zorder': 3, 'alpha':1.0, 'align': 'right'})
         plt.tight_layout()
 
         #plt.show()

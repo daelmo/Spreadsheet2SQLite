@@ -16,11 +16,13 @@ class Density_Graph:
         plt.cla()
         plt.figure(figsize= [5.6, 3])
 
-        plt.xticks([max(self.density_per_table)-1])
-        #plt.xlim(1000000000)
+        plt.xticks(np.arange(0,20, step = 1))
+        #plt.tick_params(axis='x', colors='#555555', labelsize='large')
+
+        plt.xlim([0,20])
 
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
-        sns.distplot(self.density_per_table, bins=1000, hist=True, kde=False, hist_kws={'zorder': 3, 'rwidth': 2, 'alpha':1.0})
+        sns.distplot(self.density_per_table,  bins=1900, hist=True, kde=False, hist_kws={'zorder': 3, 'rwidth': 0.3, 'alpha':1.0, 'align':'left'})
         plt.tight_layout()
 
         #plt.show()

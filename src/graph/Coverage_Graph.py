@@ -9,25 +9,25 @@ class Coverage_Graph:
 
     def __init__(self, dbconnector):
         self.dbconnector = dbconnector
-        self.density_per_table = self._getDensityValues()
+        self.coverage_per_table = self._getCoverageValues()
 
     def draw(self):
         plt.clf()
         plt.cla()
         plt.figure(figsize= [5.6, 3])
-        plt.xlim([0,1.1])
+        #plt.xlim([0,1.1])
 
         plt.xticks([ 0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1])
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
-        sns.distplot(self.density_per_table, bins=9, hist=True, kde=False,
-                     hist_kws={'zorder': 3, 'rwidth': 0.3, 'alpha': 1.0})
+        sns.distplot(self.coverage_per_table, bins=10, hist=True, kde=False,
+                     hist_kws={'zorder': 3,  'alpha': 1.0, 'align': 'right'})
         plt.tight_layout()
 
         #plt.show()
         plt.savefig('images/coverage_over_tables.png')
 
 
-    def _getDensityValues(self):
+    def _getCoverageValues(self):
         sql = '''with all_visible_filled_cells as (
             select count(*) as all_visible_filled, sheet_name, file_name
             from cell_annotations

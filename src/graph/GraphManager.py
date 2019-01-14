@@ -4,6 +4,7 @@ from src.graph.Sheets_With_Label_Graph import Sheets_With_Label_Graph
 from src.graph.Visible_Cells_per_Table_Graph import Visible_Cells_per_Table_Graph
 from src.graph.Density_Graph import Density_Graph
 from src.graph.Coverage_Graph import Coverage_Graph
+from src.graph.Width_Height_Ratio_Graph import Width_Height_Ratio_Graph
 
 class GraphManager:
     graphsForDrawing = []
@@ -18,9 +19,10 @@ class GraphManager:
         hiddenCellsGraph = Visible_Cells_per_Table_Graph(dbconnector)
         densityGraph = Density_Graph(dbconnector)
         coverageGraph = Coverage_Graph(dbconnector)
+        widthHeightGraph = Width_Height_Ratio_Graph(dbconnector)
 
 
-        self.graphsForDrawing = [ tableCountGraph, labelCountGraph, hiddenCellsGraph, densityGraph, coverageGraph ]
+        self.graphsForDrawing = [ tableCountGraph, labelCountGraph, hiddenCellsGraph, densityGraph, coverageGraph, widthHeightGraph ]
 
     def draw(self):
         for graph in self.graphsForDrawing:

@@ -24,6 +24,7 @@ class Sheets_With_Label_Graph:
         y_pos = np.arange(len(bars))
 
 
+        plt.ylim([0,500])
         plt.xticks(y_pos, bars, rotation=40, horizontalalignment='right')
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
         ax = plt.bar(y_pos, height, zorder=3)
@@ -41,7 +42,7 @@ class Sheets_With_Label_Graph:
         plt.tight_layout()
 
         # Show graphic
-        plt.savefig('images/labels_per_spreadsheet.png')
+        plt.savefig('images/spreadsheets_with_label.png')
 
 
     def _getLabelCount(self):
