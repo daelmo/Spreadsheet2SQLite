@@ -24,7 +24,7 @@ class Visible_Cells_per_Table_Graph:
         plt.tight_layout()
 
         #plt.show()
-        plt.savefig('images/ratio_hidden_cells_per_table.png')
+        plt.savefig('images/ratio_visible_cells_per_table.png')
 
 
     def _getVisibleCellsRatio(self):

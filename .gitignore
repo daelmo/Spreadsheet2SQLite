@@ -1,3 +1,4 @@
+*.db
 paper/*
 data/
 *.xls*
