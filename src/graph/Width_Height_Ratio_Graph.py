@@ -17,8 +17,8 @@ class Width_Height_Ratio_Graph:
         plt.cla()
         plt.figure(figsize=[5.6, 3])
         plt.xlim([0, 5.05])
-        plt.ylim([0,770])
-        plt.xlabel('ratio value')
+        plt.ylim([0,780])
+        plt.xlabel('table width / height ratio')
         plt.ylabel('count of tables')
 
        # plt.xticks(np.arange(0, 2, step=0.2))

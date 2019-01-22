@@ -16,9 +16,10 @@ class Coverage_Graph:
         plt.cla()
         plt.figure(figsize= [5.6, 3])
         #plt.xlim([0,1.1])
+        plt.ylim([0,810])
         plt.yticks([])
-        plt.xlabel('')
-        plt.ylabel('')
+        plt.xlabel('visible filled cells in table / total ratio')
+        plt.ylabel('count of spreadsheets')
 
         plt.xticks([ 0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1])
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)

@@ -8,7 +8,6 @@ class Sheets_With_Label_Graph:
     count_tables = []
 
     def __init__(self, dbconnector):
-        self.title = 'number of tables per sheet'
         self.dbconnector = dbconnector
         self.labelCount = self._getLabelCount()
 
@@ -26,7 +25,7 @@ class Sheets_With_Label_Graph:
 
         plt.xlabel('labels')
         plt.ylabel('count of spreadsheets')
-        plt.ylim([0,950])
+        plt.ylim([0,1000])
         plt.xticks(y_pos, bars, rotation=40, horizontalalignment='right')
         plt.yticks([])
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)

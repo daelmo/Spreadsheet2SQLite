@@ -15,11 +15,11 @@ class Visible_Cells_per_Table_Graph:
         plt.clf()
         plt.cla()
         plt.figure(figsize= [5.6, 3])
-        plt.xlabel('')
-        plt.ylabel('')
+        plt.xlabel('visible cells / all cells per table ratio')
+        plt.ylabel('count of tables')
 
         #plt.xlim([0,1])
-        plt.ylim([0,680])
+        plt.ylim([0,690])
         plt.xticks([0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1])
         plt.yticks([])
 
