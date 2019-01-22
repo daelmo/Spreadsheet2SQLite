@@ -24,8 +24,11 @@ class Sheets_With_Label_Graph:
         y_pos = np.arange(len(bars))
 
 
-        plt.ylim([0,500])
+        plt.xlabel('labels')
+        plt.ylabel('count of spreadsheets')
+        plt.ylim([0,950])
         plt.xticks(y_pos, bars, rotation=40, horizontalalignment='right')
+        plt.yticks([])
         plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
         ax = plt.bar(y_pos, height, zorder=3)
 
@@ -46,6 +49,6 @@ class Sheets_With_Label_Graph:
 
 
     def _getLabelCount(self):
-        sql = 'select count(DISTINCT sheet_name), cell_label from cell_annotations group by cell_label'
+        sql = 'select count(DISTINCT file_name), cell_label from cell_annotations group by cell_label'
         result = self.dbconnector.execute(sql)
         return result

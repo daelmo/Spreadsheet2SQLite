@@ -14,7 +14,7 @@ class GraphManager:
         self.dbconnector = dbconnector
 
         tableCountGraph = Table_per_Sheet_Graph(dbconnector)
-        #tableStats = TableStats(dbconnector)
+        tableStats = TableStats(dbconnector)
         labelCountGraph = Sheets_With_Label_Graph(dbconnector)
         hiddenCellsGraph = Visible_Cells_per_Table_Graph(dbconnector)
         densityGraph = Density_Graph(dbconnector)
@@ -22,7 +22,7 @@ class GraphManager:
         widthHeightGraph = Width_Height_Ratio_Graph(dbconnector)
 
 
-        self.graphsForDrawing = [ tableCountGraph, labelCountGraph, hiddenCellsGraph, densityGraph, coverageGraph, widthHeightGraph ]
+        self.graphsForDrawing = [ tableCountGraph, labelCountGraph, hiddenCellsGraph, densityGraph, coverageGraph, widthHeightGraph, tableStats ]
 
     def draw(self):
         for graph in self.graphsForDrawing:
