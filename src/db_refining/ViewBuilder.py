@@ -6,6 +6,7 @@ class ViewBuilder:
 
     def buildViews(self):
         self._buildTablesVisibleHiddenInfo()
+        self._buildTablesOrientationInfo()
 
 
     def _buildTablesVisibleHiddenInfo(self):
@@ -91,4 +92,69 @@ class ViewBuilder:
                 table_name
             from joined_table
         '''
+        self.dbconnector.execute(sql)
+
+    def _buildTablesOrientationInfo(self):
+        sql= '''create view tables_orientation_info as 
+with first_table as (
+            Select 
+                min(first_row * first_column), first_row, last_row, first_column, 
+                last_column, file_name, table_name, sheet_name
+            from tables
+            group by sheet_name, file_name
+            order by file_name),
+            
+            table_join as(
+            select 
+                t.first_row as t1_first_row, 
+                t.first_column as t1_first_column, 
+                t.last_row as t1_last_row, 
+                t.last_column as t1_last_column,
+                ft.first_row as t2_first_row, 
+                ft.first_column as t2_first_column, 
+                ft.last_row as t2_last_row,
+                ft.last_column as t2_last_column,
+                ft.sheet_name, 
+                ft.file_name,
+				ft.table_name
+            from tables t
+            inner join first_table ft
+            on t.file_name=ft.file_name and t.sheet_name = ft.sheet_name
+            where t.table_name != ft.table_name)
+            
+             
+            select 
+            case 
+                WHEN 
+                    t1_first_column >  t2_last_column
+                then 1
+                else 0
+            end as horizontal,
+            case 
+                WHEN 
+                    t1_first_row > t2_last_row
+                then 1
+                else 0
+            end as vertical,
+            case 
+                when	
+                    t1_first_row > t2_last_row and 
+                    t1_first_column >  t2_last_column
+                    then 1
+                    else 0 
+            end as horizontal_vertical,
+			table_name,
+            file_name,
+            sheet_name
+            from table_join'''
+        self.dbconnector.execute(sql)
+
+    def _buildTopLeftTables(self):
+        sql = '''create view top_left_tables as 
+            Select 
+                min(first_row * first_column), first_row, last_row, first_column, 
+                last_column, file_name, table_name, sheet_name
+            from tables
+            group by sheet_name, file_name
+            order by file_name'''
         self.dbconnector.execute(sql)
