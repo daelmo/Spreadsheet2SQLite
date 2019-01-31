@@ -15,14 +15,14 @@ class Coverage_Graph:
         plt.clf()
         plt.cla()
         plt.figure(figsize= [5.6, 3])
-        #plt.xlim([0,1.1])
-        plt.ylim([0,810])
+        plt.xlim([-0.1,1.1])
+        plt.ylim([0,830])
         plt.yticks([])
-        plt.xlabel('visible filled cells in table / total ratio')
-        plt.ylabel('count of spreadsheets')
+        plt.xlabel('coverage ratio per sheet')
+        plt.ylabel('count of sheets')
 
         plt.xticks([ 0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1])
-        plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
+        #plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
         ax = sns.distplot(self.coverage_per_table, bins=10, hist=True, kde=False,
                      hist_kws={'zorder': 3,  'alpha': 1.0, 'align': 'right'})
 

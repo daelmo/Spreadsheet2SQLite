@@ -95,16 +95,16 @@ class ViewBuilder:
         self.dbconnector.execute(sql)
 
     def _buildTablesOrientationInfo(self):
-        sql= '''create view tables_orientation_info as 
+        sql= '''create view tables_orientation_info as
 with first_table as (
             Select 
-                min(first_row * first_column), first_row, last_row, first_column, 
+                min((first_row +1) * (first_column +1)), first_row, last_row, first_column, 
                 last_column, file_name, table_name, sheet_name
             from tables
-            group by sheet_name, file_name
+            group by file_name, sheet_name
             order by file_name),
             
-            table_join as(
+    table_join as(
             select 
                 t.first_row as t1_first_row, 
                 t.first_column as t1_first_column, 
@@ -115,15 +115,14 @@ with first_table as (
                 ft.last_row as t2_last_row,
                 ft.last_column as t2_last_column,
                 ft.sheet_name, 
-                ft.file_name,
-				ft.table_name
+				ft.file_name,
+				ft.table_name as first_table_name,
+				t.table_name as lower_table_name
             from tables t
             inner join first_table ft
-            on t.file_name=ft.file_name and t.sheet_name = ft.sheet_name
-            where t.table_name != ft.table_name)
-            
-             
-            select 
+            on t.file_name=ft.file_name and t.sheet_name = ft.sheet_name)
+			
+			select 
             case 
                 WHEN 
                     t1_first_column >  t2_last_column
@@ -143,18 +142,21 @@ with first_table as (
                     then 1
                     else 0 
             end as horizontal_vertical,
-			table_name,
+			lower_table_name,
+			first_table_name,
             file_name,
             sheet_name
-            from table_join'''
+            from table_join
+		    '''
         self.dbconnector.execute(sql)
 
     def _buildTopLeftTables(self):
         sql = '''create view top_left_tables as 
-            Select 
-                min(first_row * first_column), first_row, last_row, first_column, 
+			Select 
+                min((first_row +1) * (first_column +1)), first_row, last_row, first_column, 
                 last_column, file_name, table_name, sheet_name
             from tables
-            group by sheet_name, file_name
-            order by file_name'''
+            group by file_name, sheet_name
+            order by file_name
+			'''
         self.dbconnector.execute(sql)

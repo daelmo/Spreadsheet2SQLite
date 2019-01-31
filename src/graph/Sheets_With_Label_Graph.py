@@ -23,12 +23,12 @@ class Sheets_With_Label_Graph:
         y_pos = np.arange(len(bars))
 
 
-        plt.xlabel('labels')
-        plt.ylabel('count of spreadsheets')
-        plt.ylim([0,1000])
-        plt.xticks(y_pos, bars, rotation=40, horizontalalignment='right')
+        plt.xlabel('cell labels in sheets')
+        plt.ylabel('count of sheets')
+        plt.ylim([0,1100])
+        plt.xticks(y_pos, bars, rotation=25, horizontalalignment='right')
         plt.yticks([])
-        plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
+        #plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
         ax = plt.bar(y_pos, height, zorder=3)
 
         rects = ax.patches

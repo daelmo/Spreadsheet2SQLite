@@ -16,14 +16,14 @@ class Width_Height_Ratio_Graph:
         plt.clf()
         plt.cla()
         plt.figure(figsize=[5.6, 3])
-        plt.xlim([0, 5.05])
-        plt.ylim([0,780])
-        plt.xlabel('table width / height ratio')
+        plt.xlim([0, 5])
+        plt.ylim([0,830])
+        plt.xlabel('table width/height ratio')
         plt.ylabel('count of tables')
 
        # plt.xticks(np.arange(0, 2, step=0.2))
         plt.yticks([])
-        plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
+        #plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
         ax = sns.distplot(self.width_height_ratio_per_table, bins=31, hist=True, kde=False,
                      hist_kws={'zorder': 3, 'alpha': 1.0})
 

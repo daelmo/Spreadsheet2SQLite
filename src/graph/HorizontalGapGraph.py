@@ -5,7 +5,7 @@ import numpy as np
 import seaborn as sns
 from matplotlib.pyplot import gca
 
-class Table_per_Sheet_Graph:
+class HorizontalGapGraph:
     count_tables = []
 
     def __init__(self, dbconnector):
@@ -16,35 +16,35 @@ class Table_per_Sheet_Graph:
         plt.clf()
         plt.cla()
         plt.figure(figsize=[5.6, 3])
-        plt.xlim([0, 10])
-        plt.ylim([0, 800])
-        plt.xticks(np.arange(1, 9, 1.0))
+        plt.xlim([-1, 15])
+        plt.ylim([0, 65])
+        plt.xticks(np.arange(0, 15, 1.0))
         plt.yticks([])
-        plt.xlabel('count of tables')
-        plt.ylabel('count of sheets')
+        plt.xlabel('gap size in columns')
+        plt.ylabel('count of distances')
         #plt.grid(color='#cccccc', linestyle='--', linewidth=0.5, zorder=0)
-        ax = sns.distplot(self.tables_per_sheet, bins=124, hist=True, kde=False,
+        ax = sns.distplot(self.tables_per_sheet, bins=50, hist=True, kde=False,
                      hist_kws={ 'zorder': 3,  'alpha':1.0, 'align': 'left' })
 
 
-        rects = ax.patches[:10]
-        labels = [int(h.get_height()) for h in ax.patches][:10]
+        rects = ax.patches[:]
+        labels = [int(h.get_height()) for h in ax.patches][:15]
 
         # numbers on bars
         for rect, label in zip(rects, labels):
             height = rect.get_height()
-            plt.text(rect.get_x() + rect.get_width() / 2, height + 5, label,
+            plt.text(rect.get_x() + rect.get_width() / 2, height + 2, label,
                     ha='center', va='bottom')
 
         plt.tight_layout()
 
 
         #plt.show()
-        plt.savefig('images/table_count_per_file.png')
+        plt.savefig('images/horizontal_gaps_between_tables.png')
 
 
     def _getTablesPerSheet(self):
-        sql = 'Select count(distinct table_name) from cell_annotations where table_name is not NULL group by file_name'
+        sql = 'select distance from horizontal_table_distances'
         result = self.dbconnector.execute(sql)
         print(pd.DataFrame(result))
         return pd.DataFrame(result)

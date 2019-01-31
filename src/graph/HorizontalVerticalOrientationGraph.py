@@ -18,7 +18,7 @@ class HorizontalVerticalOrientationGraph:
         plt.cla()
         plt.figure(figsize=[5.6, 3])
         # plt.xlim([0, 10])
-        plt.ylim([0, 350])
+        plt.ylim([0, 370])
         plt.xticks([])
         plt.yticks([])
 
@@ -31,7 +31,7 @@ class HorizontalVerticalOrientationGraph:
 
         rects = ax.patches[:3]
         labels = [int(h.get_height()) for h in ax.patches][:3]
-        plt.xticks([1,2,3], ['horizontal', 'vertical', 'both'])
+        plt.xticks([1,2,3], ['horizontal', 'vertical', 'horizontal & vertical'])
 
 
 
